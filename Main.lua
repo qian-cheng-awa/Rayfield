@@ -1547,8 +1547,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 		if getgenv and not getgenv().rayfieldCached then
 			Rayfield.Enabled = true
 			Rayfield.Loading.Visible = true
-			Rayfield.Loading.Banner.Image = "rbxassetid://"..Settings.LoadingUiIcon
-			Rayfield.Loading.TextLabel.Text = Settings.LoadingUiText
+			Rayfield.Loading.Banner.Image = "rbxassetid://"..Settings.LoadingUiIcon or "0"
+			Rayfield.Loading.TextLabel.Text = Settings.LoadingUiText or "Loading"
 			task.wait(1.4)
 			Rayfield.Loading.Visible = false
 		end
