@@ -2,6 +2,19 @@ if debugX then
 	warn('Initialising Rayfield')
 end
 
+local function PlayUiSound(id)
+	if typeof(id) == "number" then
+		id = "rbxassetid://" .. tostring(id)
+	end
+	local Sound = Instance.new("Sound",workspace)
+	Sound.SoundId = id
+	Sound:Play()
+	local a;a = Sound.Ended:Connect(function()
+		Sound:Destroy()
+		a:Disconnect()
+	end)
+end
+
 local function getService(name)
 	local service = game:GetService(name)
 	return if cloneref then cloneref(service) else service
@@ -2065,6 +2078,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 
 			Button.Interact.MouseButton1Click:Connect(function()
+				PlayUiSound(87437544236708)
 				local Success, Response = pcall(ButtonSettings.Callback)
 				-- Prevents animation from trying to play if the button's callback called RayfieldLibrary:Destroy()
 				if rayfieldDestroyed then
@@ -2097,6 +2111,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 
 			Button.MouseEnter:Connect(function()
+				PlayUiSound(10066942189)
 				TweenService:Create(Button, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 				TweenService:Create(Button.ElementIndicator, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {TextTransparency = 0.7}):Play()
 			end)
@@ -2698,6 +2713,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Dropdown.Toggle.Rotation = 180
 
 			Dropdown.Interact.MouseButton1Click:Connect(function()
+				PlayUiSound(87437544236708)
 				TweenService:Create(Dropdown, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 				TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 				task.wait(0.1)
@@ -2737,6 +2753,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 
 			Dropdown.MouseEnter:Connect(function()
+				PlayUiSound(10066942189)
 				if not Dropdown.List.Visible then
 					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 				end
@@ -2771,7 +2788,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 
 					DropdownOption.Interact.ZIndex = 50
+					DropdownOption.MouseEnter:Connect(function()
+						PlayUiSound(10066942189)
+					end)
 					DropdownOption.Interact.MouseButton1Click:Connect(function()
+						PlayUiSound(87437544236708)
 						if not DropdownSettings.MultipleOptions and table.find(DropdownSettings.CurrentOption, Option) then 
 							return
 						end
@@ -3120,6 +3141,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end
 
 			Toggle.MouseEnter:Connect(function()
+				PlayUiSound(10066942189)
 				TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 			end)
 
@@ -3129,6 +3151,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			Toggle.Interact.MouseButton1Click:Connect(function()
 				if ToggleSettings.CurrentValue == true then
+					PlayUiSound(6003247689)
 					ToggleSettings.CurrentValue = false
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
@@ -3139,6 +3162,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()	
 				else
+					PlayUiSound(87437544236708)
+					
 					ToggleSettings.CurrentValue = true
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
@@ -3290,6 +3315,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end
 
 			Slider.MouseEnter:Connect(function()
+				PlayUiSound(10066942189)
 				TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 			end)
 
@@ -3352,6 +3378,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 						end
 
 						if SliderSettings.CurrentValue ~= NewValue then
+							PlayUiSound(10066942189)
 							local Success, Response = pcall(function()
 								SliderSettings.Callback(NewValue)
 							end)
