@@ -2793,9 +2793,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 					end)
 					DropdownOption.Interact.MouseButton1Click:Connect(function()
 						PlayUiSound(87437544236708)
-						if not DropdownSettings.MultipleOptions and table.find(DropdownSettings.CurrentOption, Option) then 
-							return
-						end
 
 						if table.find(DropdownSettings.CurrentOption, Option) then
 							table.remove(DropdownSettings.CurrentOption, table.find(DropdownSettings.CurrentOption, Option))
@@ -3163,7 +3160,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()	
 				else
 					PlayUiSound(87437544236708)
-					
+
 					ToggleSettings.CurrentValue = true
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
