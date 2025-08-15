@@ -1,4 +1,3 @@
---
 if debugX then
 	warn('Initialising Rayfield')
 end
@@ -2831,7 +2830,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 
 						local Success, Response = pcall(function()
-							DropdownSettings.Callback(#DropdownSettings.CurrentOption > 0 and DropdownSettings.CurrentOption or nil)
+							DropdownSettings.Callback(DropdownSettings.CurrentOption)
 						end)
 
 						if not Success then
