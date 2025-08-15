@@ -2793,9 +2793,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 					end)
 					DropdownOption.Interact.MouseButton1Click:Connect(function()
 						PlayUiSound(87437544236708)
-						if not DropdownSettings.CanNoneSeleted and not DropdownSettings.MultipleOptions and table.find(DropdownSettings.CurrentOption, Option) then 
-							return
-						end
 
 						if table.find(DropdownSettings.CurrentOption, Option) then
 							table.remove(DropdownSettings.CurrentOption, table.find(DropdownSettings.CurrentOption, Option))
@@ -2833,7 +2830,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 
 						local Success, Response = pcall(function()
-							DropdownSettings.Callback(DropdownSettings.CurrentOption)
+							DropdownSettings.Callback(#DropdownSettings.CurrentOption > 0 and DropdownSettings.CurrentOption or nil)
 						end)
 
 						if not Success then
