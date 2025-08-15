@@ -1,3 +1,4 @@
+--
 if debugX then
 	warn('Initialising Rayfield')
 end
@@ -2805,7 +2806,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 									Dropdown.Selected.Text = "Various"
 								end
 							else
-								Dropdown.Selected.Text = DropdownSettings.CurrentOption[1] or "None"
+								Dropdown.Selected.Text = DropdownSettings.CurrentOption and DropdownSettings.CurrentOption[1] or "None"
 							end
 						else
 							if not DropdownSettings.MultipleOptions then
@@ -2821,7 +2822,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 									Dropdown.Selected.Text = "Various"
 								end
 							else
-								Dropdown.Selected.Text = DropdownSettings.CurrentOption[1] or "None"
+								Dropdown.Selected.Text = DropdownSettings.CurrentOption and DropdownSettings.CurrentOption[1] or "None"
 							end
 							TweenService:Create(DropdownOption.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 							TweenService:Create(DropdownOption, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.DropdownSelected}):Play()
