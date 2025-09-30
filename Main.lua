@@ -1,3 +1,4 @@
+--
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -139,7 +140,7 @@ if getrenv().RunInDeltaUi then
 				NewInput.TextBox.Text = config.CurrentValue
 				NewInput.TextBox.ClearTextOnFocus = config.RemoveTextAfterFocusLost
 				NewInput.Title.Text = config.Name
-				NewInput.Desc = config.Desc
+				NewInput.Desc.Text = config.Desc
 				NewInput.TextBox.FocusLost:Connect(function()
 					local sus,res = pcall(function()
 						config.Callback(NewInput.TextBox.Text)
