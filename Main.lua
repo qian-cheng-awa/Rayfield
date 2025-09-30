@@ -1,4 +1,3 @@
---
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -527,7 +526,7 @@ if getrenv().RunInDeltaUi then
 								config.CurrentValue = NewValue
 							end
 						else
-							TweenService:Create(NewSlider.Main.Progress, TweenInfo.new(0.3, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, Location - NewSlider.Main.AbsolutePosition.X > 5 and Location - NewSlider.Main.AbsolutePosition.X or 5, 1, 0)}):Play()
+							TweenService:Create(NewSlider.Main.Progress, TweenInfo(0.3, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, Location - NewSlider.Main.AbsolutePosition.X > 5 and Location - NewSlider.Main.AbsolutePosition.X or 5, 1, 0)}):Play()
 							Loop:Disconnect()
 						end
 					end)
@@ -536,7 +535,7 @@ if getrenv().RunInDeltaUi then
 				config.Set = function(self,NewVal)
 					local NewVal = math.clamp(NewVal, config.Range[1], config.Range[2])
 
-					TweenService:Create(NewSlider.Main.Progress, TweenInfo.new(0.45, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, NewSlider.Main.AbsoluteSize.X * ((NewVal + config.Range[1]) / (config.Range[2] - config.Range[1])) > 5 and NewSlider.Main.AbsoluteSize.X * (NewVal / (config.Range[2] - Config.Range[1])) or 5, 1, 0)}):Play()
+					TweenService:Create(NewSlider.Main.Progress, TweenInfo(0.45, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, NewSlider.Main.AbsoluteSize.X * ((NewVal + config.Range[1]) / (config.Range[2] - config.Range[1])) > 5 and NewSlider.Main.AbsoluteSize.X * (NewVal / (config.Range[2] - Config.Range[1])) or 5, 1, 0)}):Play()
 					NewSlider.Main.Information.Text = tostring(NewVal) .. " " .. (config.Suffix or "")
 
 					local Success, Response = pcall(function()
@@ -589,36 +588,36 @@ if getrenv().RunInDeltaUi then
 				local sliderDragging = false 
 				ColorPicker.Interact.MouseButton1Down:Connect(function()
 					task.spawn(function()
-						TweenService:Create(ColorPicker.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
+						TweenService:Create(ColorPicker.UIStroke, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 						task.wait(0.2)
-						TweenService:Create(ColorPicker.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
+						TweenService:Create(ColorPicker.UIStroke, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Transparency = 0}):Play()
 					end)
 
 					if not opened then
 						opened = true 
-						TweenService:Create(Background, TweenInfo.new(0.45, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 18, 0, 15)}):Play()
+						TweenService:Create(Background, TweenInfo(0.45, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 18, 0, 15)}):Play()
 						task.wait(0.1)
-						TweenService:Create(ColorPicker, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, -10, 0, 120)}):Play()
-						TweenService:Create(Background, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 173, 0, 86)}):Play()
-						TweenService:Create(Display, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
-						TweenService:Create(ColorPicker.Interact, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Position = UDim2.new(0.289, 0, 0.5, 0)}):Play()
-						TweenService:Create(ColorPicker.RGB, TweenInfo.new(0.8, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 40)}):Play()
-						TweenService:Create(ColorPicker.HexInput, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 73)}):Play()
-						TweenService:Create(ColorPicker.Interact, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(0.574, 0, 1, 0)}):Play()
-						TweenService:Create(Main.MainPoint, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {ImageTransparency = 0}):Play()
-						TweenService:Create(Background, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
+						TweenService:Create(ColorPicker, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, -10, 0, 120)}):Play()
+						TweenService:Create(Background, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 173, 0, 86)}):Play()
+						TweenService:Create(Display, TweenInfo(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
+						TweenService:Create(ColorPicker.Interact, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Position = UDim2.new(0.289, 0, 0.5, 0)}):Play()
+						TweenService:Create(ColorPicker.RGB, TweenInfo(0.8, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 40)}):Play()
+						TweenService:Create(ColorPicker.HexInput, TweenInfo(0.5, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 73)}):Play()
+						TweenService:Create(ColorPicker.Interact, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(0.574, 0, 1, 0)}):Play()
+						TweenService:Create(Main.MainPoint, TweenInfo(0.2, Enum.EasingStyle.Exponential), {ImageTransparency = 0}):Play()
+						TweenService:Create(Background, TweenInfo(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
 					else
 						opened = false
-						TweenService:Create(ColorPicker, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, -10, 0, 45)}):Play()
-						TweenService:Create(Background, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 39, 0, 22)}):Play()
-						TweenService:Create(ColorPicker.Interact, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, 0, 1, 0)}):Play()
-						TweenService:Create(ColorPicker.Interact, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
-						TweenService:Create(ColorPicker.RGB, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 70)}):Play()
-						TweenService:Create(ColorPicker.HexInput, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 90)}):Play()
-						TweenService:Create(Display, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
-						TweenService:Create(Main.MainPoint, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {ImageTransparency = 1}):Play()
-						TweenService:Create(Main, TweenInfo.new(0.2, Enum.EasingStyle.Exponential), {ImageTransparency = 1}):Play()
-						TweenService:Create(Background, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
+						TweenService:Create(ColorPicker, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, -10, 0, 45)}):Play()
+						TweenService:Create(Background, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(0, 39, 0, 22)}):Play()
+						TweenService:Create(ColorPicker.Interact, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, 0, 1, 0)}):Play()
+						TweenService:Create(ColorPicker.Interact, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
+						TweenService:Create(ColorPicker.RGB, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 70)}):Play()
+						TweenService:Create(ColorPicker.HexInput, TweenInfo(0.5, Enum.EasingStyle.Exponential), {Position = UDim2.new(0, 17, 0, 90)}):Play()
+						TweenService:Create(Display, TweenInfo(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0}):Play()
+						TweenService:Create(Main.MainPoint, TweenInfo(0.2, Enum.EasingStyle.Exponential), {ImageTransparency = 1}):Play()
+						TweenService:Create(Main, TweenInfo(0.2, Enum.EasingStyle.Exponential), {ImageTransparency = 1}):Play()
+						TweenService:Create(Background, TweenInfo(0.6, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
 					end
 
 				end)
