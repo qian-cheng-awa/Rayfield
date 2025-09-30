@@ -1,3 +1,4 @@
+--
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -523,8 +524,10 @@ if getrenv().RunInDeltaUi then
 								config.CurrentValue = NewValue
 							end
 						else
-							TweenService:Create(NewSlider.Main.Progress, TweenInfo(0.3, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, Location - NewSlider.Main.AbsolutePosition.X > 5 and Location - NewSlider.Main.AbsolutePosition.X or 5, 1, 0)}):Play()
-							Loop:Disconnect()
+							pcall(function()
+								TweenService:Create(NewSlider.Main.Progress, TweenInfo(0.3, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, Location - NewSlider.Main.AbsolutePosition.X > 5 and Location - NewSlider.Main.AbsolutePosition.X or 5, 1, 0)}):Play()
+								Loop:Disconnect()
+							end)
 						end
 					end)
 				end)
