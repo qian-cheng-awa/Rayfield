@@ -1,4 +1,3 @@
---
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -277,6 +276,7 @@ if getrenv().RunInDeltaUi then
 				NewDropdown.Desc.Text = config.Desc
 
 				local NewDropdownOptions = NewPage.UIListLayout.DropdownOptions:Clone()
+				NewDropdownOptions.Visible = false
 				NewDropdownOptions.Parent = NewPage
 				NewDropdownOptions.Name = config.Name.."Options"
 				NewDropdownOptions.LayoutOrder = layout
@@ -285,6 +285,7 @@ if getrenv().RunInDeltaUi then
 				for i,v in pairs(config.Options) do
 					local NewOption = NewDropdownOptions.Dropdown.ScrollingFrame.UIListLayout.Frame:Clone()
 					NewOption.LayoutOrder = i
+					NewOption.Name = v
 					NewOption.Parent = NewDropdownOptions.Dropdown.ScrollingFrame
 					NewOption.Button.Title.Text = v
 					NewOption.Button.MouseButton1Click:Connect(function()
@@ -308,19 +309,17 @@ if getrenv().RunInDeltaUi then
 						if config.CurrentOption[1] == nil then
 							NewDropdown.Button.Title.Text = "None"
 						elseif config.CurrentOption[2] == nil then
-							NewDropdown.Button.Title.Text = "..."
-						else
 							NewDropdown.Button.Title.Text = v
+						else
+							NewDropdown.Button.Title.Text = "..."
 						end
-						for i,v in ipairs( NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
+						for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 							if v:IsA("Frame") then
-								v.Button.Checked.Visible = false
-							end
-						end
-						for i,v in pairs(config.CurrentOption) do
-							local button = NewDropdownOptions.Dropdown.ScrollingFrame:FindFirstChild(v)
-							if button then
-								button.Button.Checked.Visible = true
+								if string.find(config.CurrentOption,v.Name) then
+									v.Button.Checked.Visible = true
+								else
+									v.Button.Checked.Visible = false
+								end
 							end
 						end
 						local sus,res = pcall(function()
@@ -363,15 +362,13 @@ if getrenv().RunInDeltaUi then
 					else
 						NewDropdown.Button.Title.Text = val
 					end
-					for i,v in ipairs( NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
+					for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 						if v:IsA("Frame") then
-							v.Button.Checked.Visible = false
-						end
-					end
-					for i,v in pairs(config.CurrentOption) do
-						local button = NewDropdownOptions.Dropdown.ScrollingFrame:FindFirstChild(v)
-						if button then
-							button.Button.Checked.Visible = true
+							if string.find(config.CurrentOption,v.Name) then
+								v.Button.Checked.Visible = true
+							else
+								v.Button.Checked.Visible = false
+							end
 						end
 					end
 					local sus,res = pcall(function()
@@ -389,6 +386,7 @@ if getrenv().RunInDeltaUi then
 					end
 					for i,v in pairs(val) do
 						local NewOption = NewDropdownOptions.Dropdown.ScrollingFrame.UIListLayout.Frame:Clone()
+						NewOption.Name = v
 						NewOption.LayoutOrder = i
 						NewOption.Parent = NewDropdownOptions.Dropdown.ScrollingFrame
 						NewOption.Button.Title.Text = v
@@ -417,16 +415,13 @@ if getrenv().RunInDeltaUi then
 							end
 							for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 								if v:IsA("Frame") then
-									v.Button.Checked.Visible = false
+									if string.find(config.CurrentOption,v.Name) then
+										v.Button.Checked.Visible = true
+									else
+										v.Button.Checked.Visible = false
+									end
 								end
-							end
-							for i,v in pairs(config.CurrentOption) do
-								local button = NewDropdownOptions.Dropdown.ScrollingFrame:FindFirstChild(v)
-								if button then
-									button.Button.Checked.Visible = true
-								end
-							end
-							local sus,res = pcall(function()
+							end,res = pcall(function()
 								config.Callback(config.CurrentOption)
 							end)
 							if not sus then
