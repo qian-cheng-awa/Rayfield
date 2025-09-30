@@ -1,3 +1,4 @@
+--
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -310,6 +311,17 @@ if getrenv().RunInDeltaUi then
 						else
 							NewDropdown.Button.Title.Text = v
 						end
+						for i,v in ipairs( NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
+							if v:IsA("Frame") then
+								v.Button.Checked.Visible = false
+							end
+						end
+						for i,v in pairs(config.CurrentOption) do
+							local button = NewDropdownOptions.Dropdown.ScrollingFrame:FindFirstChild(v)
+							if button then
+								button.Button.Checked.Visible = true
+							end
+						end
 						local sus,res = pcall(function()
 							config.Callback(config.CurrentOption)
 						end)
@@ -341,7 +353,7 @@ if getrenv().RunInDeltaUi then
 					ToggleOpen(not Open)
 				end)
 
-				config.Set = function(val)
+				config.Set = function(self,val)
 					config.CurrentOption = val
 					if config.CurrentOption[1] == nil then
 						NewDropdown.Button.Title.Text = "None"
@@ -350,6 +362,17 @@ if getrenv().RunInDeltaUi then
 					else
 						NewDropdown.Button.Title.Text = val
 					end
+					for i,v in ipairs( NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
+						if v:IsA("Frame") then
+							v.Button.Checked.Visible = false
+						end
+					end
+					for i,v in pairs(config.CurrentOption) do
+						local button = NewDropdownOptions.Dropdown.ScrollingFrame:FindFirstChild(v)
+						if button then
+							button.Button.Checked.Visible = true
+						end
+					end
 					local sus,res = pcall(function()
 						config.Callback(config.CurrentOption)
 					end)
@@ -357,7 +380,7 @@ if getrenv().RunInDeltaUi then
 						print(config.Name.." Callback Error " ..tostring(res))
 					end
 				end
-				config.Refresh = function(val)
+				config.Refresh = function(self,val)
 					for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 						if v:IsA("Frame") then
 							v:Destroy()
@@ -372,10 +395,8 @@ if getrenv().RunInDeltaUi then
 							if config.MultipleOptions then
 								if table.find(config.CurrentOption,v) then
 									table.remove(config.CurrentOption,table.find(config.CurrentOption,v))
-									NewOption.Button.Checked.Visible = false
 								else
 									table.insert(config.CurrentOption,v)
-									NewOption.Button.Checked.Visible = true
 								end
 							else
 								if config.CurrentOption[1] == v then
@@ -392,6 +413,17 @@ if getrenv().RunInDeltaUi then
 								NewDropdown.Button.Title.Text = "..."
 							else
 								NewDropdown.Button.Title.Text = v
+							end
+							for i,v in ipairs( NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
+								if v:IsA("Frame") then
+									v.Button.Checked.Visible = false
+								end
+							end
+							for i,v in pairs(config.CurrentOption) do
+								local button = NewDropdownOptions.Dropdown.ScrollingFrame:FindFirstChild(v)
+								if button then
+									button.Button.Checked.Visible = true
+								end
 							end
 							local sus,res = pcall(function()
 								config.Callback(config.CurrentOption)
@@ -501,7 +533,7 @@ if getrenv().RunInDeltaUi then
 					end)
 				end)
 
-				config.Set = function(NewVal)
+				config.Set = function(self,NewVal)
 					local NewVal = math.clamp(NewVal, config.Range[1], config.Range[2])
 
 					TweenService:Create(NewSlider.Main.Progress, TweenInfo.new(0.45, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {Size = UDim2.new(0, NewSlider.Main.AbsoluteSize.X * ((NewVal + config.Range[1]) / (config.Range[2] - config.Range[1])) > 5 and NewSlider.Main.AbsoluteSize.X * (NewVal / (config.Range[2] - Config.Range[1])) or 5, 1, 0)}):Play()
