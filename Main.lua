@@ -1,3 +1,4 @@
+--
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -114,8 +115,8 @@ if getrenv().RunInDeltaUi then
 
 				TweenService:Create(NewTabButton,TweenInfo(s,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{BackgroundTransparency = 0}):Play()
 				NewPage.Visible = true
-				NewPage.Position = UDim2.fromScale(.4,.5)
-				TweenService:Create(NewPage,TweenInfo(.25,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Position = UDim2.fromScale(.5,.5)}):Play()
+				NewPage.Position = UDim2.fromScale(.4,1)
+				TweenService:Create(NewPage,TweenInfo(.25,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Position = UDim2.fromScale(.5,1)}):Play()
 			end)
 
 			local layout = 0
