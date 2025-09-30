@@ -1,4 +1,3 @@
---
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -317,7 +316,7 @@ if getrenv().RunInDeltaUi then
 						end
 						for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 							if v:IsA("Frame") then
-								if string.find(config.CurrentOption,v.Name) then
+								if table.find(config.CurrentOption,v.Name) then
 									v.Button.Checked.Visible = true
 								else
 									v.Button.Checked.Visible = false
@@ -332,7 +331,13 @@ if getrenv().RunInDeltaUi then
 						end
 					end)
 				end
-
+				if config.CurrentOption[1] == nil then
+					NewDropdown.Button.Title.Text = "None"
+				elseif config.CurrentOption[2] == nil then
+					NewDropdown.Button.Title.Text = config.CurrentOption[1]
+				else
+					NewDropdown.Button.Title.Text = "..."
+				end
 				local Open = false
 
 				local function ToggleOpen(val)
@@ -366,7 +371,7 @@ if getrenv().RunInDeltaUi then
 					end
 					for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 						if v:IsA("Frame") then
-							if string.find(config.CurrentOption,v.Name) then
+							if table.find(config.CurrentOption,v.Name) then
 								v.Button.Checked.Visible = true
 							else
 								v.Button.Checked.Visible = false
@@ -417,7 +422,7 @@ if getrenv().RunInDeltaUi then
 							end
 							for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 								if v:IsA("Frame") then
-									if string.find(config.CurrentOption,v.Name) then
+									if table.find(config.CurrentOption,v.Name) then
 										v.Button.Checked.Visible = true
 									else
 										v.Button.Checked.Visible = false
