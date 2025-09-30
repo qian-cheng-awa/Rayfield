@@ -1,4 +1,3 @@
---
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -422,7 +421,8 @@ if getrenv().RunInDeltaUi then
 										v.Button.Checked.Visible = false
 									end
 								end
-							end,res = pcall(function()
+							end
+							local sus,res = pcall(function()
 								config.Callback(config.CurrentOption)
 							end)
 							if not sus then
