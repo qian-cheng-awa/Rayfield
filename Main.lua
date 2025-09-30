@@ -1,4 +1,3 @@
---
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -176,6 +175,8 @@ if getrenv().RunInDeltaUi then
 
 				local NewToggle = NewPage.UIListLayout.Switch:Clone()
 				NewToggle.LayoutOrder = layout
+				NewToggle.Title.Text = config.Name
+				NewToggle.Desc.Text = config.Desc
 				layout += 1
 				NewToggle.Parent = NewPage
 				local function Toggle(Val)
