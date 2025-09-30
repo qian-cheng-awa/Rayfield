@@ -1,4 +1,3 @@
---
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -175,6 +174,7 @@ if getrenv().RunInDeltaUi then
 				}
 
 				local NewToggle = NewPage.UIListLayout.Switch:Clone()
+				NewToggle.Name = config.Name
 				NewToggle.LayoutOrder = layout
 				NewToggle.Title.Text = config.Name
 				NewToggle.Desc.Text = config.Desc
@@ -569,6 +569,7 @@ if getrenv().RunInDeltaUi then
 				ColorPicker.ClipsDescendants = true
 				ColorPicker.Name = config.Name
 				ColorPicker.Title.Text = config.Name
+				ColorPicker.Desc.Text = config.Desc
 				ColorPicker.Visible = true
 				ColorPicker.Parent = NewPage
 				ColorPicker.Size = UDim2.new(1, -10, 0, 45)
@@ -766,6 +767,7 @@ if getrenv().RunInDeltaUi then
 
 				local Label = NewPage.UIListLayout.Label:Clone()
 				Label.Title.Text = LabelText
+				Label.Name = LabelText
 				Label.Parent = NewPage
 				Label.Desc.Text = Desc or ''
 
