@@ -1,3 +1,4 @@
+--
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -27,6 +28,85 @@ if getrenv().RunInDeltaUi then
 	DeltaUiLib.GetDeltaIcon = function(Name)
 		return getcustomasset("DeltaAssets/"..Name)
 	end
+	if Ui:FindFirstChild("Notifications") then
+		Ui:FindFirstChild("Notifications"):Destroy()
+	end
+	local Notifications = game:GetObjects("rbxassetid://99527325983045")[1]
+	Notifications.Name = "Notifications"
+	Notifications.Parent = Ui
+	Notifications.Visible = true
+	DeltaUiLib.Notify = function(self,data)
+		task.spawn(function()
+
+			-- Notification Object Creation
+			local newNotification = Notifications.Template:Clone()
+			newNotification.Name = data.Title or 'No Title Provided'
+			newNotification.Parent = Notifications
+			newNotification.LayoutOrder = #Notifications:GetChildren()
+			newNotification.Visible = false
+
+			-- Set Data
+			newNotification.Title.Text = data.Title or "Unknown Title"
+			newNotification.Description.Text = data.Content or "Unknown Content"
+
+			-- Set initial transparency values
+			newNotification.Size = UDim2.new(1,0,0,170)
+			newNotification.BackgroundTransparency = 1
+			newNotification.Title.TextTransparency = 1
+			newNotification.Description.TextTransparency = 1
+			newNotification.UIStroke.Transparency = 1
+			newNotification.Shadow.ImageTransparency = 1
+			newNotification.Size = UDim2.new(1, 0, 0, 800)
+			newNotification.Icon.ImageTransparency = 1
+			newNotification.Icon.BackgroundTransparency = 1
+
+			task.wait()
+
+			newNotification.Visible = true
+
+			-- Calculate textbounds and set initial values
+			local bounds = {newNotification.Title.TextBounds.Y, newNotification.Description.TextBounds.Y}
+			newNotification.Size = UDim2.new(1, -60, 0, -Notifications:FindFirstChild("UIListLayout").Padding.Offset)
+
+			newNotification.Icon.Size = UDim2.new(0, 32, 0, 32)
+			newNotification.Icon.Position = UDim2.new(0, 20, 0.5, 0)
+
+			TweenService:Create(newNotification, TweenInfo(0.6, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, 0, 0, math.max(bounds[1] + bounds[2] + 31, 60))}):Play()
+
+			task.wait(0.15)
+			TweenService:Create(newNotification, TweenInfo(0.4, Enum.EasingStyle.Exponential), {BackgroundTransparency = 0.45}):Play()
+			TweenService:Create(newNotification.Title, TweenInfo(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0}):Play()
+
+			task.wait(0.05)
+
+			TweenService:Create(newNotification.Icon, TweenInfo(0.3, Enum.EasingStyle.Exponential), {ImageTransparency = 0}):Play()
+
+			task.wait(0.05)
+			TweenService:Create(newNotification.Description, TweenInfo(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 0.35}):Play()
+			TweenService:Create(newNotification.UIStroke, TweenInfo(0.4, Enum.EasingStyle.Exponential), {Transparency = 0.95}):Play()
+			TweenService:Create(newNotification.Shadow, TweenInfo(0.3, Enum.EasingStyle.Exponential), {ImageTransparency = 0.82}):Play()
+
+			local waitDuration = math.min(math.max((#newNotification.Description.Text * 0.1) + 2.5, 3), 10)
+			task.wait(data.Duration or waitDuration)
+
+			newNotification.Icon.Visible = false
+			TweenService:Create(newNotification, TweenInfo(0.4, Enum.EasingStyle.Exponential), {BackgroundTransparency = 1}):Play()
+			TweenService:Create(newNotification.UIStroke, TweenInfo(0.4, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
+			TweenService:Create(newNotification.Shadow, TweenInfo(0.3, Enum.EasingStyle.Exponential), {ImageTransparency = 1}):Play()
+			TweenService:Create(newNotification.Title, TweenInfo(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
+			TweenService:Create(newNotification.Description, TweenInfo(0.3, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
+
+			TweenService:Create(newNotification, TweenInfo(1, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, -90, 0, 0)}):Play()
+
+			task.wait(1)
+
+			TweenService:Create(newNotification, TweenInfo(1, Enum.EasingStyle.Exponential), {Size = UDim2.new(1, -90, 0, -Notifications:FindFirstChild("UIListLayout").Padding.Offset)}):Play()
+
+			newNotification.Visible = false
+			newNotification:Destroy()
+		end)
+	end
+	
 	DeltaUiLib.CreateWindow = function(self,Config)
 		local MainUi = {}
 		Config = {
@@ -55,6 +135,11 @@ if getrenv().RunInDeltaUi then
 		UiLib.Parent = Ui
 		UiLib.Visible = false
 		UiLib.Position = UDim2.fromScale(.4,.5)
+		DeltaUiLib:Notify({
+			Title = "TDM",
+			Content = "UI在忍者里！打开忍者点侧边栏最底下那个就是脚本",
+			Duration = 6.5,
+		})
 		local s = .5
 		for i,v in ipairs(SideBar:GetChildren()) do
 			if v:IsA("ImageButton") and v ~= NewButton and v.Name ~= "ToggleUI" then
@@ -87,12 +172,12 @@ if getrenv().RunInDeltaUi then
 		local firsttab = false
 		MainUi.CreateTab = function(self,Title,Icon)
 			local Tab = {}
-
+			
 			local NewTabButton = UiLib.Tabs.Tabs.UIListLayout.Button:Clone()
 			NewTabButton.Parent = UiLib.Tabs.Tabs
 			NewTabButton.Name = Title
 			NewTabButton.Text = Title
-
+		
 			Tab.TabButton = NewTabButton
 
 			local NewPage = UiLib.Pages:Clone()
@@ -791,6 +876,8 @@ if getrenv().RunInDeltaUi then
 				local Divider = NewPage.UIListLayout.Divider:Clone()
 				Divider.Parent = NewPage
 
+				Divider.LayoutOrder = layout
+				layout += 1
 				function DividerValue:Set(Value)
 					Divider.Visible = Value
 				end
