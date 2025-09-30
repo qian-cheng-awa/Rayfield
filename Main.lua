@@ -1,3 +1,4 @@
+--
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -84,7 +85,7 @@ if getrenv().RunInDeltaUi then
 			TweenService:Create(UiLib,TweenInfo(.25,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Position = UDim2.fromScale(.5,.5)}):Play()
 		end)
 
-
+		local firsttab = false
 		MainUi.CreateTab = function(self,Title,Icon)
 			local Tab = {}
 
@@ -98,7 +99,8 @@ if getrenv().RunInDeltaUi then
 			local NewPage = UiLib.Pages:Clone()
 			NewPage.Parent = UiLib
 			NewPage.Name = Title
-			NewPage.Visible = true
+			NewPage.Visible = not firsttab
+			firsttab = true
 			NewTabButton.MouseButton1Click:Connect(function()
 				for i,v in ipairs(UiLib:GetChildren()) do
 					if v:FindFirstChild("Marker") and v.Marker.Value == "Page" then
