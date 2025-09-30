@@ -1,3 +1,4 @@
+--
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -413,7 +414,7 @@ if getrenv().RunInDeltaUi then
 							else
 								NewDropdown.Button.Title.Text = v
 							end
-							for i,v in ipairs( NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
+							for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 								if v:IsA("Frame") then
 									v.Button.Checked.Visible = false
 								end
@@ -790,10 +791,34 @@ if getrenv().RunInDeltaUi then
 			end
 			return Tab
 		end
-
+		UiLib.Searchbar.Visible = true
+		UiLib.Searchbar.Input.FocusLost:Connect(function()
+			local InputText = UiLib.Searchbar.Input.Text
+			for i,v in ipairs(UiLib:GetChildren()) do
+				if v:FindFirstChild("Marker") and v.Marker.Value == "Page" then
+					if InputText == "" then
+						for i,v in ipairs(v:GetChildren()) do
+							if v:IsA("Frame") then
+								v.Visible = true
+							end
+						end
+					else
+						
+						for i,v in ipairs(v:GetChildren()) do
+							if v:IsA("Frame") then
+								if string.find(v.Name:lower(),InputText:lower()) then
+									v.Visible = true
+								else
+									v.Visible = false
+								end
+							end
+						end
+					end
+				end
+			end
+		end)
 		return MainUi
 	end
-
 
 
 	return DeltaUiLib
