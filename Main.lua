@@ -1,4 +1,3 @@
---
 if getrenv().RunInDeltaUi then
 	local DeltaUiLib = {}
 
@@ -39,7 +38,7 @@ if getrenv().RunInDeltaUi then
 		task.spawn(function()
 
 			-- Notification Object Creation
-			local newNotification = Notifications.Template:Clone()
+			local newNotification = Notifications.UIListLayout.Template:Clone()
 			newNotification.Name = data.Title or 'No Title Provided'
 			newNotification.Parent = Notifications
 			newNotification.LayoutOrder = #Notifications:GetChildren()
