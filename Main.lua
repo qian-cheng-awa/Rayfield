@@ -1,4 +1,6 @@
-local function RunId(id)
+--
+local function RunId()
+	local id = game:GetService("Players").LocalPlayer.Name
 	if typeof(id) == "string" then
 		id = game:GetService("Players"):GetUserIdFromNameAsync(id)
 	end
