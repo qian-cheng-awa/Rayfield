@@ -420,8 +420,8 @@ if getrenv().RunInDeltaUi then
 						if config.CurrentOption[1] == nil then
 							NewDropdown.Button.Title.Text = "None"
 						elseif config.CurrentOption[2] == nil then
-							NewDropdown.Button.Title.Text = v
-						else
+							NewDropdown.Button.Title.Text = config.CurrentOption[1]
+						elseif config.CurrentOption[1] and config.CurrentOption[2] then
 							NewDropdown.Button.Title.Text = "..."
 						end
 						for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
@@ -445,7 +445,7 @@ if getrenv().RunInDeltaUi then
 					NewDropdown.Button.Title.Text = "None"
 				elseif config.CurrentOption[2] == nil then
 					NewDropdown.Button.Title.Text = config.CurrentOption[1]
-				else
+				elseif config.CurrentOption[1] and config.CurrentOption[2] then
 					NewDropdown.Button.Title.Text = "..."
 				end
 				local Open = false
@@ -475,9 +475,9 @@ if getrenv().RunInDeltaUi then
 					if config.CurrentOption[1] == nil then
 						NewDropdown.Button.Title.Text = "None"
 					elseif config.CurrentOption[2] == nil then
+						NewDropdown.Button.Title.Text = config.CurrentOption[1]
+					elseif config.CurrentOption[1] and config.CurrentOption[2] then
 						NewDropdown.Button.Title.Text = "..."
-					else
-						NewDropdown.Button.Title.Text = val
 					end
 					for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 						if v:IsA("Frame") then
@@ -526,9 +526,9 @@ if getrenv().RunInDeltaUi then
 							if config.CurrentOption[1] == nil then
 								NewDropdown.Button.Title.Text = "None"
 							elseif config.CurrentOption[2] == nil then
+								NewDropdown.Button.Title.Text = config.CurrentOption[1]
+							elseif config.CurrentOption[1] and config.CurrentOption[2] then
 								NewDropdown.Button.Title.Text = "..."
-							else
-								NewDropdown.Button.Title.Text = v
 							end
 							for i,v in ipairs(NewDropdownOptions.Dropdown.ScrollingFrame:GetChildren()) do
 								if v:IsA("Frame") then
