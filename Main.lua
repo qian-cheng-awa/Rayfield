@@ -1,4 +1,3 @@
---
 local function RunId()
 	local id = game:GetService("Players").LocalPlayer.Name
 	if typeof(id) == "string" then
@@ -399,8 +398,11 @@ if getrenv().RunInDeltaUi then
 					NewOption.Name = v
 					NewOption.Parent = NewDropdownOptions.Dropdown.ScrollingFrame
 					NewOption.Button.Title.Text = v
-					if table.find(config.CurrentOption,v) then
-						NewOption.Button.Checked.Visible = true
+					NewOption.Button.Checked.Visible = false
+					for i,b in pairs(config.CurrentOption) do
+						if v == b then
+							NewOption.Button.Checked.Visible = true
+						end
 					end
 					NewOption.Button.MouseButton1Click:Connect(function()
 						if config.MultipleOptions then
