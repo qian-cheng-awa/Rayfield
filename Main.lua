@@ -1,3 +1,4 @@
+--
 local function RunId()
 	local id = game:GetService("Players").LocalPlayer.Name
 	if typeof(id) == "string" then
@@ -389,7 +390,7 @@ if getrenv().RunInDeltaUi then
 				layout += 1
 				if config.CurrentOption and config.CurrentOption[1] then
 					if not config.MultipleOptions then
-						config.CurrentOption = config.CurrentOption[1]
+						config.CurrentOption = {config.CurrentOption[1]}
 					end
 				end
 				for i,v in pairs(config.Options) do
