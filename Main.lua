@@ -1,4 +1,3 @@
---
 local function RunId()
 	local id = game:GetService("Players").LocalPlayer.Name
 	if typeof(id) == "string" then
@@ -388,21 +387,26 @@ if getrenv().RunInDeltaUi then
 				NewDropdownOptions.Name = config.Name.."Options"
 				NewDropdownOptions.LayoutOrder = layout
 				layout += 1
-
+				if config.CurrentOption and config.CurrentOption[1] then
+					if not config.MultipleOptions then
+						config.CurrentOption = config.CurrentOption[1]
+					end
+				end
 				for i,v in pairs(config.Options) do
 					local NewOption = NewDropdownOptions.Dropdown.ScrollingFrame.UIListLayout.Frame:Clone()
 					NewOption.LayoutOrder = i
 					NewOption.Name = v
 					NewOption.Parent = NewDropdownOptions.Dropdown.ScrollingFrame
 					NewOption.Button.Title.Text = v
+					if table.find(config.CurrentOption,v) then
+						NewOption.Button.Checked.Visible = true
+					end
 					NewOption.Button.MouseButton1Click:Connect(function()
 						if config.MultipleOptions then
 							if table.find(config.CurrentOption,v) then
 								table.remove(config.CurrentOption,table.find(config.CurrentOption,v))
-								NewOption.Button.Checked.Visible = false
 							else
 								table.insert(config.CurrentOption,v)
-								NewOption.Button.Checked.Visible = true
 							end
 						else
 							if config.CurrentOption[1] == v then
