@@ -32,7 +32,7 @@ if getrenv().RunInDeltaUi then
 	local Ui = DeltaUiLib.GetDeltaUi()
 	local Player = Players.LocalPlayer
 
-	
+
 
 	DeltaUiLib._G = getrenv()[RunId()]
 
@@ -1590,7 +1590,7 @@ else
 	local globalLoaded
 	local rayfieldDestroyed = false -- True when RayfieldLibrary:Destroy() is called
 
-	repeat
+	--[[repeat
 		if Rayfield:FindFirstChild('Build') and Rayfield.Build.Value == InterfaceBuild then
 			correctBuild = true
 			break
@@ -1604,11 +1604,11 @@ else
 			warned = true
 		end
 
-		toDestroy, Rayfield = Rayfield, useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://10804731440")[1]
+		toDestroy, Rayfield = Rayfield, useStudio and script.Parent:FindFirstChild('Rayfield') or game:GetObjects("rbxassetid://102349378104649")[1]
 		if toDestroy and not useStudio then toDestroy:Destroy() end
 
 		buildAttempts = buildAttempts + 1
-	until buildAttempts >= 2
+	until buildAttempts >= 2]]
 
 	Rayfield.Enabled = false
 
