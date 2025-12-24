@@ -15,14 +15,17 @@ end
 if not getrenv()[RunId()] then
 	getrenv()[RunId()] = {}
 end
-if getrenv().RunInDeltaUi then
+local deltaui do
+	for i,v in ipairs(gethui():GetChildren()) do
+		if v:FindFirstChild("MainScript") and v:FindFirstChild("UILibrary") then
+			deltaui = v
+		end
+	end
+end
+if getrenv().RunInDeltaUi and deltaui then
 	local DeltaUiLib = {}
 	DeltaUiLib.GetDeltaUi = function()
-		for i,v in ipairs(gethui():GetChildren()) do
-			if v:FindFirstChild("MainScript") and v:FindFirstChild("UILibrary") then
-				return v
-			end
-		end
+		return deltaui
 	end
 	local RunService = game:GetService("RunService")
 	local TweenService = game:GetService("TweenService")
