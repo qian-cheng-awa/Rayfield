@@ -22,7 +22,7 @@ local deltaui do
 		end
 	end
 end
-if getrenv().RunInDeltaUi and deltaui then
+if getrenv().RunInDeltaUi and deltaui and deltaui:FindFirstChild("Sidebar") then
 	local DeltaUiLib = {}
 	DeltaUiLib.GetDeltaUi = function()
 		return deltaui
